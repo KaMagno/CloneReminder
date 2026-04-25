@@ -10,14 +10,16 @@ import SwiftData
 
 @main
 struct CloneReminderApp: App {
-    var sharedModelContainer: ModelContainer = {
+    var dataService: DataServiceInterface = {
         let schema = Schema([
             Item.self,
+            ItemsList.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            var sharedModelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
+            return DataService(modelContainer: sharedModelContainer)
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
@@ -25,8 +27,11 @@ struct CloneReminderApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CoordinatorView(
+                coordinator: Coordinator(startRoute: .lists),
+                startRoute: .lists,
+                dataService: dataService
+            )
         }
-        .modelContainer(sharedModelContainer)
     }
 }
