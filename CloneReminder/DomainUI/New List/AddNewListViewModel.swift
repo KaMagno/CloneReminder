@@ -38,7 +38,7 @@ final class AddNewListViewModel: AddNewListViewModelInterface {
         let newList = ItemsList(
             iconName: listIconName,
             name: listName,
-            color: color
+            colorHex: color.toHexString() ?? "#F0F0F0"
         )
         
         do {

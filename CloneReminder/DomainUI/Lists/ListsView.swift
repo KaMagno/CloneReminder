@@ -8,8 +8,6 @@ private enum ListsViewConstants {
     }
 }
 
-
-
 struct ListsView<ViewModel: ListViewModelInterface>: View {
     
     @ObservedObject
