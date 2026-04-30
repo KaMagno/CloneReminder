@@ -86,8 +86,17 @@ private extension ListsView {
                     .onTapGesture {
                         model.goTo(list: list)
                     }
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button(role: .destructive) {
+                            model.delete(list: list)
+                        } label: {
+                            Text("Delete")
+                        }
+
+                    }
             }
             .listStyle(.inset)
+            
             
             Button {
                 model.goToNewList()

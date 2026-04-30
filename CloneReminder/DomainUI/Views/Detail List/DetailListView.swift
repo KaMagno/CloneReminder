@@ -21,11 +21,27 @@ struct DetailListView<ViewModel: DetailListViewModelInterface>: View {
             List() {
                 ForEach(model.itemsList.items)  { item in
                     ItemRowView(item, color: .init(hex: model.itemsList.colorHex)!)
+                        .listRowBackground(Color.white)
                         .onSubmit {
                             model.submit(on: item)
                         }
                         .onTapGesture {
                             model.tapped(on: item)
+                        }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button(role: .destructive) {
+                                model.traillingSwapped(on: item)
+                            } label: {
+                                Text("Delete")
+                            }
+                        }
+                        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                            Button(role: .close) {
+                                model.leadingSwapped(on: item)
+                            } label: {
+                                Label("Check", systemImage: "checkmark")
+                            }
+
                         }
                 }
                 
@@ -36,9 +52,11 @@ struct DetailListView<ViewModel: DetailListViewModelInterface>: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .buttonStyle(.borderless)
+                .listRowSeparator(.hidden, edges: .bottom)
             }
-            .listStyle(.plain)
             .padding()
+            .listStyle(.plain)
+            
             
             Spacer()
         }

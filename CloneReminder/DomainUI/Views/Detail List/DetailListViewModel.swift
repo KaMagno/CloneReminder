@@ -7,6 +7,8 @@ protocol DetailListViewModelInterface: ObservableObject {
     func tappedNewItem()
     func tapped(on item: Item)
     func submit(on item: Item)
+    func traillingSwapped(on item: Item)
+    func leadingSwapped(on item: Item)
 }
 
 final class DetailListViewModel: DetailListViewModelInterface {
@@ -36,6 +38,15 @@ final class DetailListViewModel: DetailListViewModelInterface {
     func submit(on item: Item) {
         save(on: item)
     }
+    
+    func traillingSwapped(on item: Item) {
+        delete(on: item)
+    }
+    
+    func leadingSwapped(on item: Item) {
+        item.isCompleted.toggle()
+        save(on: item)
+    }
 }
 
 private extension DetailListViewModel {
@@ -50,6 +61,14 @@ private extension DetailListViewModel {
     func save(on list: ItemsList) {
         do {
             try dataService.save(list)
+        } catch {
+            Logger.error(error.localizedDescription)
+        }
+    }
+    
+    func delete(on item: Item) {
+        do {
+            try dataService.delete(item)
         } catch {
             Logger.error(error.localizedDescription)
         }

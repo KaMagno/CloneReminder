@@ -1,9 +1,11 @@
 import Combine
+import Foundation
 
 protocol ListViewModelInterface: ObservableObject {
     var viewStates: ListViewStates { get }
     
     func fetchData()
+    func delete(list: ItemsList)
     func goToNewList()
     func goTo(list: ItemsList)
 }
@@ -34,8 +36,16 @@ final class ListViewModel: ListViewModelInterface {
             let itemsList: [ItemsList] = try dataService.fetch()
             viewStates = .idle(itemsLists: itemsList)
         } catch {
-            debugPrint(error)
+            Logger.error(error.localizedDescription)
             viewStates = .error
+        }
+    }
+    
+    func delete(list: ItemsList) {
+        do {
+            try dataService.delete(list)
+        } catch {
+            Logger.error(error.localizedDescription)
         }
     }
     
