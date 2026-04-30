@@ -5,6 +5,7 @@ protocol ListViewModelInterface: ObservableObject {
     
     func fetchData()
     func goToNewList()
+    func goTo(list: ItemsList)
 }
 
 enum ListViewStates {
@@ -40,6 +41,12 @@ final class ListViewModel: ListViewModelInterface {
     
     func goToNewList() {
         coordinator.present(.createList)
+    }
+    
+    func goTo(list: ItemsList) {
+        coordinator.push(
+            to: .detail(list: list)
+        )
     }
 }
 

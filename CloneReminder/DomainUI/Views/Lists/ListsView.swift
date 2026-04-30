@@ -83,6 +83,9 @@ private extension ListsView {
             
             List(itemsLists) { list in
                 ListRowView(list: list)
+                    .onTapGesture {
+                        model.goTo(list: list)
+                    }
             }
             .listStyle(.inset)
             

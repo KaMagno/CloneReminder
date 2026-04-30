@@ -9,7 +9,7 @@ extension Color {
     /// If alpha is not specified, it defaults to 1.0.
     public init?(hex: String) {
         // Remove white spaces and lines.
-        var whiteSpaceTrimmed: String = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        let whiteSpaceTrimmed: String = hex.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // Remove non-hex prefix characters like '#' or '0x'
         var nonPrefixHex: String = whiteSpaceTrimmed.replacingOccurrences(
@@ -37,13 +37,13 @@ extension Color {
         guard scanner.scanHexInt64(&hexNumber) else { return nil }
 
         //Extract colors from Hex number
-        var redPosition: Int = 16
-        var greenPosition: Int = 8
-        var bluePosition: Int = 0
+        let redPosition: Int = 16
+        let greenPosition: Int = 8
+        let bluePosition: Int = 0
         
-        var redMask: UInt64 = 0xFF0000
-        var greenMask: UInt64 = 0x00FF00
-        var blueMask: UInt64 = 0x0000FF
+        let redMask: UInt64 = 0xFF0000
+        let greenMask: UInt64 = 0x00FF00
+        let blueMask: UInt64 = 0x0000FF
         
         var maskedRed: UInt64
         var maskedGreen: UInt64

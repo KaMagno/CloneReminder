@@ -39,6 +39,8 @@ struct CoordinatorView<CoordinatorProtocol: CoordinatorInterface>: View {
         switch route {
         case .lists:
             ListsBuilder.build(coordinator: coordinator, dataService: dataService)
+        case .detail(let itemsList):
+            DetailListBuilder.build(itemsList: itemsList, dataService: dataService)
         }
     }
     
@@ -51,4 +53,12 @@ struct CoordinatorView<CoordinatorProtocol: CoordinatorInterface>: View {
             }
         }
     }
+}
+
+#Preview {
+    CoordinatorView(
+        coordinator: MockCoordinator(),
+        startRoute: .lists,
+        dataService: DataService.mock
+    )
 }
