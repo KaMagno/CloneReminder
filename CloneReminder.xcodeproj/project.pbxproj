@@ -27,6 +27,7 @@
 		3F2216FC2F993F1000827DAB /* CloneReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloneReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F22170B2F993F1300827DAB /* CloneReminderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloneReminderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F2217152F993F1300827DAB /* CloneReminderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloneReminderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F41ED462FAD551D00BAFCC3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +76,7 @@
 		3F2216F32F993F1000827DAB = {
 			isa = PBXGroup;
 			children = (
+				3F41ED462FAD551D00BAFCC3 /* README.md */,
 				3F2216FE2F993F1000827DAB /* CloneReminder */,
 				3F22170E2F993F1300827DAB /* CloneReminderTests */,
 				3F2217182F993F1300827DAB /* CloneReminderUITests */,
