@@ -18,6 +18,14 @@ struct ItemRowView: View {
                         .multilineTextAlignment(.leading)
                         .foregroundStyle(.gray)
                 }
+                //TODO: Create a logic to replace the date if need to 'Tomorrow'
+                if let reminderDate = item.reminderDate {
+                    Text(reminderDate.formatted(date: .abbreviated, time: .shortened))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.footnote)
+                        .multilineTextAlignment(.leading)
+                        .foregroundStyle(.gray)
+                }
             }
             Spacer()
             imageFor(isCompleted: item.isCompleted)
@@ -44,7 +52,7 @@ struct ItemRowView: View {
 #Preview {
     List {
         ItemRowView(
-            .init(name: "Milk", notes: "Must be raw milk",isCompleted: false),
+            .init(name: "Milk", notes: "Must be raw milk", reminderDate: .now, isCompleted: false),
             color: .cyan
         )
         ItemRowView(
