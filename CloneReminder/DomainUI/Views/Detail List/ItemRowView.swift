@@ -9,7 +9,16 @@ struct ItemRowView: View {
     
     var body: some View {
         HStack {
-            TextField(item.name, text: $item.name)
+            VStack {
+                TextField(item.name, text: $item.name)
+                if let notes = item.notes {
+                    Text(notes)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.footnote)
+                        .multilineTextAlignment(.leading)
+                        .foregroundStyle(.gray)
+                }
+            }
             Spacer()
             imageFor(isCompleted: item.isCompleted)
                 .foregroundStyle(color)
@@ -35,7 +44,7 @@ struct ItemRowView: View {
 #Preview {
     List {
         ItemRowView(
-            .init(name: "Milk", isCompleted: false),
+            .init(name: "Milk", notes: "Must be raw milk",isCompleted: false),
             color: .cyan
         )
         ItemRowView(
