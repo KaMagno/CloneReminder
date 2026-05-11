@@ -31,7 +31,7 @@ extension ItemsList {
                 Item(name: "Milk", notes: "Raw milk", reminderDate: .now, reminderTime: .now, isCompleted: true, list: nil),
                 Item(name: "Eggs", notes: "Free-range", reminderDate: nil, reminderTime: nil, isCompleted: false, list: nil),
                 Item(name: "Bread", notes: "Sourdough loaf", reminderDate: nil, reminderTime: nil, isCompleted: false, list: nil),
-                Item(name: "Chicken", notes: "2 lbs thighs", reminderDate: nil, reminderTime: nil, isCompleted: false, list: nil),
+                Item(name: "Chicken", notes: "2 lbs thighs", reminderDate: .now, reminderTime: .now, isCompleted: false, list: nil),
                 Item(name: "Apples", notes: "Honeycrisp", reminderDate: nil, reminderTime: nil, isCompleted: false, list: nil),
                 Item(name: "Pasta", notes: "Spaghetti", reminderDate: nil, reminderTime: nil, isCompleted: false, list: nil)
             ]

@@ -11,21 +11,8 @@ struct ItemRowView: View {
         HStack {
             VStack {
                 TextField(item.name, text: $item.name)
-                if let notes = item.notes {
-                    Text(notes)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.footnote)
-                        .multilineTextAlignment(.leading)
-                        .foregroundStyle(.gray)
-                }
-                //TODO: Create a logic to replace the date if need to 'Tomorrow'
-                if let reminderDate = item.reminderDate {
-                    Text(reminderDate.formatted(date: .abbreviated, time: .shortened))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.footnote)
-                        .multilineTextAlignment(.leading)
-                        .foregroundStyle(.gray)
-                }
+                noteView(for: item)
+                dateDescriptionView(for: item)
             }
             Spacer()
             imageFor(isCompleted: item.isCompleted)
@@ -38,6 +25,35 @@ struct ItemRowView: View {
         self.color = color
     }
     
+    //MARK: View Builders
+    @ViewBuilder
+    func noteView(for item: Item) -> some View {
+        if let notes = item.notes {
+            Text(notes)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.footnote)
+                .multilineTextAlignment(.leading)
+                .foregroundStyle(.gray)
+        } else {
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    func dateDescriptionView(for item: Item) -> some View {
+        if let reminderDate = item.reminderDate {
+            Text("\(reminderDate.dueDateDescription), \(reminderDate.dueHourDescription)")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.footnote)
+                .multilineTextAlignment(.leading)
+                .foregroundStyle(.gray)
+            
+        } else {
+            EmptyView()
+        }
+    }
+    
+    //MARK: Functions with View as return
     func imageFor(isCompleted: Bool) -> Image {
         var imageName: String = "circle"
         
@@ -56,8 +72,12 @@ struct ItemRowView: View {
             color: .cyan
         )
         ItemRowView(
-            .init(name: "Eggs", isCompleted: true),
+            .init(name: "Eggs", reminderDate: .now.addingTimeInterval(3610*25), isCompleted: true),
             color: .red
+        )
+        ItemRowView(
+            .init(name: "Eggs", reminderDate: .now.addingTimeInterval(3610*45), isCompleted: false),
+            color: .yellow
         )
     }
 }
