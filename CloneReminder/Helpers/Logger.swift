@@ -76,4 +76,9 @@ enum Logger {
         let baseMessage = "❌ "
         log(.error, baseMessage+message(), category: category)
     }
+    
+    static func error(_ error: @autoclosure () -> Error, category: String = "General") {
+        let baseMessage = "❌ "
+        log(.error, baseMessage+error().localizedDescription, category: category)
+    }
 }
