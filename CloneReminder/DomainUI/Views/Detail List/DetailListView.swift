@@ -50,6 +50,8 @@ struct DetailListView<ViewModel: DetailListViewModelInterface>: View {
                 } label: {
                     Text("Add new item")
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundStyle(Color(hex: model.itemsList.colorHex)!)
+                        .bold()
                 }
                 .buttonStyle(.borderless)
                 .listRowSeparator(.hidden, edges: .bottom)
