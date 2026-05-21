@@ -32,6 +32,7 @@ struct DetailItemView<ViewModel: DetailItemViewModelInterface>: View {
                                displayedComponents: .date)
                     .datePickerStyle(.graphical)
                     .listRowInsets(.all, .zero)
+                    .animation(.easeInOut, value: model.showCalendar)
                 }
                 
                 HStack {
@@ -84,8 +85,8 @@ struct DetailItemView<ViewModel: DetailItemViewModelInterface>: View {
 
     }
     
-    init(model: ViewModel) {
-        self.model = model
+    init(viewModel: ViewModel) {
+        self.model = viewModel
     }
 }
 
@@ -121,7 +122,7 @@ private extension DetailItemView {
     
     NavigationStack {
         DetailItemView(
-            model: DetailItemViewModel(
+            viewModel: DetailItemViewModel(
                 item: sample,
                 dataService: DataService.mock,
                 coordinator: MockCoordinator()
