@@ -4,11 +4,11 @@ enum DetailItemFactory {
     static func build(
         coordinator: any CoordinatorInterface,
         dataService: DataServiceInterface,
-        items: Item
+        item: Item
     ) -> DetailItemView<DetailItemViewModel> {
         
         let viewModel = DetailItemViewModel(
-            item: items,
+            item: item,
             dataService: dataService,
             coordinator: coordinator
         )

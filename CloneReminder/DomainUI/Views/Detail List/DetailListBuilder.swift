@@ -1,8 +1,12 @@
 import Foundation
 
 enum DetailListBuilder {
-    static func build(itemsList: ItemsList, dataService: DataServiceInterface) -> DetailListView<DetailListViewModel> {
-        let viewModel = DetailListViewModel(itemsList: itemsList, dataService: dataService)
+    static func build(coordinator: some CoordinatorInterface, dataService: DataServiceInterface, itemsList: ItemsList) -> DetailListView<DetailListViewModel> {
+        let viewModel = DetailListViewModel(
+            coordinator: coordinator,
+            dataService: dataService,
+            itemsList: itemsList
+        )
         return DetailListView(viewModel: viewModel)
     }
 }

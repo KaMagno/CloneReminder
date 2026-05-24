@@ -2,10 +2,11 @@ import Combine
 import Foundation
 
 protocol DetailListViewModelInterface: ObservableObject {
-    var itemsList: ItemsList { get }
+    var itemsList: ItemsList { get set }
     
     func tappedNewItem()
-    func tapped(on item: Item)
+    func tappedOnDetail(of item: Item)
+    func toogle(item: Item)
     func submit(on item: Item)
     func traillingSwapped(on item: Item)
     func leadingSwapped(on item: Item)
@@ -14,13 +15,15 @@ protocol DetailListViewModelInterface: ObservableObject {
 final class DetailListViewModel: DetailListViewModelInterface {
     
     @Published
-    private(set) var itemsList: ItemsList
+    var itemsList: ItemsList
     
+    private var coordinator: any CoordinatorInterface
     private var dataService: DataServiceInterface
     
-    init(itemsList: ItemsList, dataService: DataServiceInterface) {
+    init(coordinator: some CoordinatorInterface ,dataService: DataServiceInterface, itemsList: ItemsList) {
         self.itemsList = itemsList
         self.dataService = dataService
+        self.coordinator = coordinator
     }
     
     func tappedNewItem() {
@@ -30,7 +33,11 @@ final class DetailListViewModel: DetailListViewModelInterface {
         save(on: itemsList)
     }
     
-    func tapped(on item: Item) {
+    func tappedOnDetail(of item: Item) {
+        coordinator.push(to: .itemDetail(item: item))
+    }
+    
+    func toogle(item: Item) {
         item.isCompleted.toggle()
         save(on: item)
     }
@@ -78,8 +85,9 @@ private extension DetailListViewModel {
 extension DetailListViewModel {
     static var mock: Self {
         .init(
+            coordinator: MockCoordinator(),
+            dataService: DataService.mock,
             itemsList: .mock,
-            dataService: DataService.mock
         )
     }
 }

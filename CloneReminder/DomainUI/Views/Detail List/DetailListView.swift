@@ -19,14 +19,19 @@ struct DetailListView<ViewModel: DetailListViewModelInterface>: View {
             .padding()
             
             List() {
-                ForEach(model.itemsList.items)  { item in
-                    ItemRowView(item, color: .init(hex: model.itemsList.colorHex)!)
-                        .listRowBackground(Color.white)
+                
+                ForEach($model.itemsList.items)  { $item in
+                    ItemRowView($item,
+                                color: .init(hex: model.itemsList.colorHex)!,
+                                onTapDetail: {
+                        model.tappedOnDetail(of: item)
+                    })
+                        .listRowBackground(Color.clear)
                         .onSubmit {
                             model.submit(on: item)
                         }
-                        .onTapGesture {
-                            model.tapped(on: item)
+                        .onToogle {
+                            model.toogle(item: item)
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                             Button(role: .destructive) {
@@ -44,6 +49,7 @@ struct DetailListView<ViewModel: DetailListViewModelInterface>: View {
 
                         }
                 }
+
                 
                 Button {
                     model.tappedNewItem()

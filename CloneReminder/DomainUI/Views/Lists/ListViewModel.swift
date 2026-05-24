@@ -55,7 +55,7 @@ final class ListViewModel: ListViewModelInterface {
     
     func goTo(list: ItemsList) {
         coordinator.push(
-            to: .detail(list: list)
+            to: .listDetail(list: list)
         )
     }
 }

@@ -38,10 +38,23 @@ struct CoordinatorView<CoordinatorProtocol: CoordinatorInterface>: View {
     func build(route: NavigationRouteScreens, withCoordinator coordinator: any CoordinatorInterface) -> some View {
         switch route {
         case .lists:
-            ListsBuilder.build(coordinator: coordinator, dataService: dataService)
-        case .detail(let itemsList):
-            DetailListBuilder.build(itemsList: itemsList, dataService: dataService)
+            ListsBuilder.build(
+                coordinator: coordinator,
+                dataService: dataService
+            )
+        case .listDetail(let itemsList):
+            DetailListBuilder.build(
+                coordinator: coordinator,
+                dataService: dataService,
+                itemsList: itemsList
+            )
+        case .itemDetail(let item):
+            DetailItemFactory.build(
+                coordinator: coordinator,
+                dataService: dataService,
+                item: item)
         }
+        
     }
     
     @ViewBuilder
