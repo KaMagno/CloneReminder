@@ -48,13 +48,7 @@ struct CoordinatorView<CoordinatorProtocol: CoordinatorInterface>: View {
                 dataService: dataService,
                 itemsList: itemsList
             )
-        case .itemDetail(let item):
-            DetailItemFactory.build(
-                coordinator: coordinator,
-                dataService: dataService,
-                item: item)
         }
-        
     }
     
     @ViewBuilder

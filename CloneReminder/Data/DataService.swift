@@ -5,13 +5,23 @@ protocol DataServiceInterface {
     func fetch<T: PersistentModel>() throws -> [T]
     func save(_ model: any PersistentModel) throws
     func delete(_ model: any PersistentModel) throws
+    func rollback() throws
 }
 
 struct DataService: DataServiceInterface {
-    private let modelContainer: ModelContainer
     
-    init(modelContainer: ModelContainer) {
+    enum Errors: Error {
+        case undoManagerNil
+    }
+    private let modelContainer: ModelContainer
+    private let undoManager: UndoManager
+    
+    init(modelContainer: ModelContainer, undoManager: UndoManager) {
         self.modelContainer = modelContainer
+        self.undoManager = undoManager
+        
+        self.modelContainer.mainContext.autosaveEnabled = false
+        self.modelContainer.mainContext.undoManager = undoManager
     }
     
     func fetch<T: PersistentModel>() throws -> [T] {
@@ -28,12 +38,26 @@ struct DataService: DataServiceInterface {
         modelContainer.mainContext.delete(model)
         try modelContainer.mainContext.save()
     }
+    
+    func rollback() throws {
+        guard let undoManager = modelContainer.mainContext.undoManager else {
+            throw Errors.undoManagerNil
+        }
+        undoManager.undo()
+        Logger.debug("\(undoManager)")
+        Logger.debug("\(undoManager.undoCount)")
+        
+        modelContainer.mainContext.rollback()
+    }
 }
 
 #if DEBUG
 extension DataService {
     static var mock: Self {
-        .init(modelContainer: previewContainer)
+        .init(
+            modelContainer: previewContainer,
+            undoManager: UndoManager()
+        )
     }
 }
 #endif

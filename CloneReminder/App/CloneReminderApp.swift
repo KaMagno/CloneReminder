@@ -15,11 +15,20 @@ struct CloneReminderApp: App {
             Item.self,
             ItemsList.self
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
+        let modelConfiguration = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: false
+        )
+        
         do {
-            var sharedModelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
-            return DataService(modelContainer: sharedModelContainer)
+            var sharedModelContainer = try ModelContainer(
+                for: schema,
+                configurations: [modelConfiguration])
+            
+            return DataService(
+                modelContainer: sharedModelContainer,
+                undoManager: UndoManager()
+            )
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
