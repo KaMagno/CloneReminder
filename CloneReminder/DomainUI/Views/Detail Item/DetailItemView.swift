@@ -22,6 +22,7 @@ struct DetailItemView<ViewModel: DetailItemViewModelInterface>: View {
                     Toggle("Date", isOn: $model.showCalendar)
                 }
 
+                //FIXME: Fix animation
                 if model.showCalendar {
                     DatePicker("",
                                selection: Binding(
@@ -37,6 +38,8 @@ struct DetailItemView<ViewModel: DetailItemViewModelInterface>: View {
                     Image(systemName: "clock")
                     Toggle("Time", isOn: $model.showTime)
                 }
+                
+                //FIXME: Fix animation 
                 if model.showTime {
                     DatePicker("",
                                selection: Binding(
