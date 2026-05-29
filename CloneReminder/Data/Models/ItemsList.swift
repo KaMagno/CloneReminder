@@ -12,7 +12,13 @@ final class ItemsList {
     @Relationship(deleteRule: .cascade)
     var items: [Item]
     
-    init(uuid: UUID = .init(), iconName: String, name: String, colorHex: String = "F0F0F0", items: [Item] = []) {
+    init(
+        uuid: UUID = .init(),
+        iconName: String,
+        name: String,
+        colorHex: String = "F0F0F0",
+        items: [Item] = []
+    ) {
         self.uuid = uuid
         self.iconName = iconName
         self.name = name

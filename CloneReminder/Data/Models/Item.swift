@@ -12,7 +12,15 @@ final class Item {
     
     var list: ItemsList?
     
-    init(uuid: UUID = .init(), name: String, notes: String? = nil, reminderDate: Date? = nil, reminderTime: Date? = nil, isCompleted: Bool, list: ItemsList? = nil) {
+    init(
+        uuid: UUID = .init(),
+        name: String,
+        notes: String? = nil,
+        reminderDate: Date? = nil,
+        reminderTime: Date? = nil,
+        isCompleted: Bool,
+        list: ItemsList? = nil
+    ) {
         self.uuid = uuid
         self.name = name
         self.notes = notes
