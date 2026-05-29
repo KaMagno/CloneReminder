@@ -20,16 +20,13 @@ struct DetailListView<ViewModel: DetailListViewModelInterface>: View {
             
             List() {
                 
-                ForEach($model.itemsList.items)  { $item in
+                ForEach($model.itemsList.items.sorted(by: {$0.wrappedValue.name > $1.wrappedValue.name}))  { $item in
                     ItemRowView($item,
                                 color: .init(hex: model.itemsList.colorHex)!,
                                 onTapDetail: {
                         model.tappedOnDetail(of: item)
                     })
                         .listRowBackground(Color.clear)
-                        .onSubmit {
-                            model.submit(on: item)
-                        }
                         .onToogle {
                             model.toogle(item: item)
                         }
@@ -77,7 +74,9 @@ struct DetailListView<ViewModel: DetailListViewModelInterface>: View {
 }
 
 #Preview {
-    DetailListView(
-        viewModel: DetailListViewModel.mock
+    CoordinatorView(
+        coordinator: Coordinator(startRoute: .listDetail(list: .mock)),
+        startRoute: .listDetail(list: .mock),
+        dataService: DataService.mock
     )
 }

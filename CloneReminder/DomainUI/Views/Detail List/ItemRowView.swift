@@ -34,8 +34,9 @@ struct ItemRowView: View {
             buttonFor(isCompleted: item.isCompleted) {
                 onToogle?()
             }
-                .foregroundStyle(color)
-                .padding(.horizontal, Constants.Image.spacing)
+            .buttonStyle(.borderless)
+            .foregroundStyle(color)
+            .padding(.horizontal, Constants.Image.spacing)
             VStack {
                 TextField(item.name, text: $item.name)
                 noteView(for: item)
@@ -47,6 +48,7 @@ struct ItemRowView: View {
             } label: {
                 Image(systemName: "info.circle")
             }
+            .buttonStyle(.borderless)
             .foregroundStyle(
                 color.mix(with: .black, by: 0.4)
             )
