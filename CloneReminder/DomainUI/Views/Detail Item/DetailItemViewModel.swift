@@ -76,11 +76,11 @@ final class DetailItemViewModel: DetailItemViewModelInterface {
     
     func shouldCancel() {
         guard hasChanges() else {
-            showCancelConfirmation = true
+            cancel()
             return
         }
         
-        cancel()
+        showCancelConfirmation = true
     }
     
     func cancel() {
@@ -96,6 +96,8 @@ private extension DetailItemViewModel {
         
         if notes.isEmpty {
             item.notes = nil
+        } else {
+            item.notes = notes
         }
     }
     

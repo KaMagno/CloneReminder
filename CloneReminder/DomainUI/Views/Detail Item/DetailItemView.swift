@@ -75,10 +75,7 @@ struct DetailItemView<ViewModel: DetailItemViewModelInterface>: View {
                         Text("Do you want to leave without saving?")
                     }
             }
-            
         }
-        
-
     }
     
     init(viewModel: ViewModel) {
