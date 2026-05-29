@@ -90,18 +90,6 @@ struct DetailItemView<ViewModel: DetailItemViewModelInterface>: View {
     }
 }
 
-private extension DetailItemView {
-    func color(for item: Item) -> Color {
-        guard let list = item.list,
-              let color = Color(hex: list.colorHex) else {
-            return .black
-        }
-        
-        return color
-    }
-}
-
-
 //MARK: - Preview
 
 #Preview {
