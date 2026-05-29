@@ -4,4 +4,5 @@ enum SheetsScreens: Hashable, Identifiable {
     var id: Self { self }
     
     case createList
+    case itemDetail(item: Item)
 }

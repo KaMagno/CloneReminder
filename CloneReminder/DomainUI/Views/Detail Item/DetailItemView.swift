@@ -9,43 +9,39 @@ struct DetailItemView<ViewModel: DetailItemViewModelInterface>: View {
         Form {
             Section {
                 Group {
-                    TextField("Title", text: $model.item.name)
+                    TextField("Title", text: $model.name)
                         .font(.title)
                         .listRowSeparator(.hidden)
-                    TextField("Notes", text: Binding($model.item.notes, default: ""))
+                    TextField("Notes", text: $model.notes)
                 }
             }
-            
+
             Section("Date & Time") {
                 HStack {
                     Image(systemName: "calendar")
-                        .foregroundStyle(color(for: model.item))
-                    
                     Toggle("Date", isOn: $model.showCalendar)
                 }
-                
+
                 if model.showCalendar {
                     DatePicker("",
                                selection: Binding(
-                                get: { model.item.reminderDate ?? .now },
-                                set: { model.item.reminderDate = $0 }),
+                                get: { model.reminderDate ?? .now },
+                                set: { model.reminderDate = $0 }),
                                displayedComponents: .date)
                     .datePickerStyle(.graphical)
                     .listRowInsets(.all, .zero)
                     .animation(.easeInOut, value: model.showCalendar)
                 }
-                
+
                 HStack {
                     Image(systemName: "clock")
-                        .foregroundStyle(color(for: model.item))
-                    
                     Toggle("Time", isOn: $model.showTime)
                 }
                 if model.showTime {
                     DatePicker("",
                                selection: Binding(
-                                get: { model.item.reminderTime ?? .now },
-                                set: { model.item.reminderTime = $0 }),
+                                get: { model.reminderTime ?? .now },
+                                set: { model.reminderTime = $0 }),
                                displayedComponents: .hourAndMinute)
                     .datePickerStyle(.wheel)
                     .listRowInsets(.all, .zero)

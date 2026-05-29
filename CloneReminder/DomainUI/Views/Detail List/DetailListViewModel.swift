@@ -34,7 +34,7 @@ final class DetailListViewModel: DetailListViewModelInterface {
     }
     
     func tappedOnDetail(of item: Item) {
-        coordinator.push(to: .itemDetail(item: item))
+        coordinator.present(.itemDetail(item: item))
     }
     
     func toogle(item: Item) {

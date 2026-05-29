@@ -56,7 +56,18 @@ struct CoordinatorView<CoordinatorProtocol: CoordinatorInterface>: View {
         switch sheet {
         case .createList:
             NavigationStack {
-                AddNewListViewBuilder.build(coordinator: coordinator, dataService: dataService)
+                AddNewListViewBuilder.build(
+                    coordinator: coordinator,
+                    dataService: dataService
+                )
+            }
+        case .itemDetail(let item):
+            NavigationStack {
+                DetailItemFactory.build(
+                    coordinator: coordinator,
+                    dataService: dataService,
+                    item: item
+                )
             }
         }
     }
