@@ -19,11 +19,15 @@ struct DetailItemView<ViewModel: DetailItemViewModelInterface>: View {
             Section("Date & Time") {
                 HStack {
                     Image(systemName: "calendar")
-                    Toggle("Date", isOn: $model.showCalendar)
+                    Toggle("Date",
+                           isOn: Binding(
+                            get: { model.isCalendarEnabled },
+                            set: { _,_ in model.showCalendar() })
+                           )
                 }
 
                 //FIXME: Fix animation
-                if model.showCalendar {
+                if model.isCalendarEnabled {
                     DatePicker("",
                                selection: Binding(
                                 get: { model.reminderDate ?? .now },
@@ -31,16 +35,20 @@ struct DetailItemView<ViewModel: DetailItemViewModelInterface>: View {
                                displayedComponents: .date)
                     .datePickerStyle(.graphical)
                     .listRowInsets(.all, .zero)
-                    .animation(.easeInOut, value: model.showCalendar)
+                    .animation(.easeInOut, value: model.isCalendarEnabled)
                 }
 
                 HStack {
                     Image(systemName: "clock")
-                    Toggle("Time", isOn: $model.showTime)
+                    Toggle("Time",
+                           isOn: Binding(
+                            get: { model.isTimeEnabled },
+                            set: { _,_ in model.showTime() })
+                           )
                 }
                 
                 //FIXME: Fix animation 
-                if model.showTime {
+                if model.isTimeEnabled {
                     DatePicker("",
                                selection: Binding(
                                 get: { model.reminderTime ?? .now },

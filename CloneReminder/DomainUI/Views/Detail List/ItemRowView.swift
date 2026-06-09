@@ -90,15 +90,24 @@ private extension ItemRowView {
     
     @ViewBuilder
     func dateDescriptionView(for item: Item) -> some View {
-        if let reminderDate = item.reminderDate {
-            Text("\(reminderDate.dueDateDescription), \(reminderDate.dueHourDescription)")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.footnote)
-                .multilineTextAlignment(.leading)
-                .foregroundStyle(.gray)
-            
-        } else {
-            EmptyView()
+        HStack {
+            if let reminderDate = item.reminderDate {
+                Text("\(reminderDate.dueDateDescription)")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.footnote)
+                    .multilineTextAlignment(.leading)
+                    .foregroundStyle(.gray)
+                
+            } else if let reminderTime = item.reminderTime{
+                Text("\(reminderTime.dueHourDescription)")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.footnote)
+                    .multilineTextAlignment(.leading)
+                    .foregroundStyle(.gray)
+                
+            } else {
+                EmptyView()
+            }
         }
     }
     

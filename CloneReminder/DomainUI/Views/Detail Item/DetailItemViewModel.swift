@@ -11,10 +11,12 @@ protocol DetailItemViewModelInterface: ObservableObject {
     var reminderDate: Date? { get set }
     var reminderTime: Date? { get set }
     
-    var showCalendar: Bool { get set }
-    var showTime: Bool { get set }
+    var isCalendarEnabled: Bool { get set }
+    var isTimeEnabled: Bool { get set }
     var showCancelConfirmation: Bool { get set }
 
+    func showCalendar()
+    func showTime()
     func save()
     func shouldCancel()
     func cancel()
@@ -35,9 +37,9 @@ final class DetailItemViewModel: DetailItemViewModelInterface {
     var reminderTime: Date?
     
     @Published
-    var showCalendar: Bool
+    var isCalendarEnabled: Bool
     @Published
-    var showTime: Bool
+    var isTimeEnabled: Bool
     @Published
     var showCancelConfirmation: Bool
     
@@ -49,14 +51,38 @@ final class DetailItemViewModel: DetailItemViewModelInterface {
         self.dataService = dataService
         self.coordinator = coordinator
         
-        self.showCalendar = item.reminderDate != nil
-        self.showTime = item.reminderTime != nil
+        self.isCalendarEnabled = item.reminderDate != nil
+        self.isTimeEnabled = item.reminderTime != nil
         self.showCancelConfirmation = false
         
         self.name = item.name
         self.notes = item.notes ?? ""
         self.reminderDate = item.reminderDate
         self.reminderTime = item.reminderTime
+    }
+    
+    func showCalendar() {
+        isCalendarEnabled.toggle()
+        
+        guard isCalendarEnabled else {
+            reminderDate = nil
+            return
+        }
+        
+        reminderDate = .now
+    }
+    
+    func showTime() {
+        isTimeEnabled.toggle()
+        
+        guard isTimeEnabled else {
+            reminderTime = nil
+            return
+        }
+        
+        isCalendarEnabled = true
+        reminderDate = .now
+        reminderTime = .now
     }
     
     func save() {
